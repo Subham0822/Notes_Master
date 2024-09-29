@@ -114,24 +114,24 @@
                 <label for="c2" class="card">
                     <div class="icon">2</div>
                     <div class="description">
-                        <h2>Character Study</h2>
-                        <p>Key personalities and roles in the play are crucial to understanding the narrative structure.</p>
+                        <h2>What is the basic plot of Macbeth?</h2>
+                        <p>Macbeth follows the rise and fall of the title character, who is driven by ambition and influenced by his wife and the supernatural prophecies of witches. After murdering King Duncan to take the throne, Macbeth's reign is marked by paranoia, further violence, and his eventual downfall at the hands of Macduff.</p>
                     </div>
                 </label>
                 <input type="radio" name="slide" id="c3">
                 <label for="c3" class="card">
                     <div class="icon">3</div>
                     <div class="description">
-                        <h2>Themes of Macbeth</h2>
-                        <p>The play addresses ambition, fate, and the impact of power.</p>
+                        <h2>What are the major themes in Macbeth?</h2>
+                        <p>Ambition and Power: The corrupting influence of unchecked ambition.<br>Fate vs. Free Will: The role of prophecy and the extent to which characters control their destinies.<br>Guilt and Conscience: The psychological effects of guilt, particularly on Macbeth and Lady Macbeth.<br>The Supernatural: The influence of witchcraft and other supernatural elements on the events of the play.</p>
                     </div>
                 </label>
                 <input type="radio" name="slide" id="c4">
                 <label for="c4" class="card">
                     <div class="icon">4</div>
                     <div class="description">
-                        <h2 >Witches in Macbeth</h2>
-                        <p>The mysterious and powerful figures in the play are key to foreshadowing.</p>
+                        <h2>What are some significant quotes from Macbeth?</h2>
+                        <p>“Fair is foul, and foul is fair.” (Act 1, Scene 1) - The Witches<br>“Is this a dagger which I see before me, the handle toward my hand?” (Act 2, Scene 1) - Macbeth<br>“Out, damned spot! Out, I say!” (Act 5, Scene 1) - Lady Macbeth<br>“Life's but a walking shadow, a poor player that struts and frets his hour upon the stage and then is heard no more.” (Act 5, Scene 5) - Macbeth</p>
                     </div>
                 </label>
             </div>

@@ -118,6 +118,7 @@ form#upload-form button {
 form#upload-form button:hover {
     background-color: #45a049;
 }
+
 /* Style for the label with the box */
 label[for="file-upload"] {
     display: block; /* Makes the label a block element to use width and padding */
@@ -393,3 +394,4 @@ input:checked + label .description {
 .card[for="c4"] {
     background-color: #f7f76c; /* Example color: yellow */
 }
+

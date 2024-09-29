@@ -57,7 +57,7 @@
 
     <section id="image-to-text">
         <h1>Image to Text Generator</h1>
-        <form id="upload-form" enctype="multipart/form-data" action="process-image.php" method="POST">
+        <form id="upload-form" enctype="multipart/form-data">
             <label for="file-upload">Upload Image</label>
             <input type="file" id="file-upload" name="file" accept="image/*" required>
             <button type="submit">Submit</button>
@@ -67,6 +67,30 @@
         </div>
     </section>
 
-    <script src="script.js"></script>
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            var formData = new FormData();
+            var fileInput = document.getElementById('file-upload');
+            formData.append('file', fileInput.files[0]);
+
+            // AJAX request
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'process-image.php', true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Display the OCR result
+                    document.getElementById('ocr-results').innerHTML = xhr.responseText;
+                } else {
+                    // Error handling
+                    document.getElementById('ocr-results').innerHTML = 'Error processing image.';
+                }
+            };
+
+            xhr.send(formData); // Send the form data
+        });
+    </script>
 </body>
 </html>
