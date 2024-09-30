@@ -1,5 +1,50 @@
 <?php
 session_start();
+
+// Database connection details
+$servername = "localhost";
+$username = "root";  // Replace with your database username
+$password = "";  // Replace with your database password
+$dbname = "macbeth_db";  // Replace with your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch questions based on act and scene
+$act = isset($_POST['act']) ? $_POST['act'] : null;
+$scene = isset($_POST['scene']) ? $_POST['scene'] : null;
+$questions = [];
+
+if ($act && $scene) {
+    // Prepare act and scene as strings (e.g., 'Act 1', 'Scene 3')
+    $act_value = "Act " . $act;
+    $scene_value = "Scene " . $scene;
+
+    // SQL query to get questions based on act and scene
+    $sql = "SELECT question_text FROM important_questions WHERE act = ? AND scene = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $act_value, $scene_value);  // 'ss' means two strings
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Fetch all questions
+        while ($row = $result->fetch_assoc()) {
+            $questions[] = $row['question_text'];
+        }
+    } else {
+        $questions[] = "No questions available for the selected act and scene.";
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,35 +53,6 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questions Generator - Macbeth</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .hidden {
-            display: none;
-        }
-        .profile-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .profile-dropdown {
-            position: absolute;
-            top: 50px;
-            right: 10px;
-            background-color: white;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            display: none;
-        }
-        .profile-dropdown a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: black;
-        }
-        .profile-dropdown a:hover {
-            background-color: #f0f0f0;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -60,32 +76,46 @@ session_start();
 
     <section id="content">
         <h1>Questions Generator</h1>
-        <div class="select-container">
-            <select id="actSelect" onchange="populateScenes()">
-                <option value="" disabled selected>Select Act</option>
-                <option value="1">Act 1</option>
-                <option value="2">Act 2</option>
-                <option value="3">Act 3</option>
-                <option value="4">Act 4</option>
-                <option value="5">Act 5</option>
-            </select>
 
-            <select id="sceneSelect">
-                <option value="" disabled selected>Select Scene</option>
-            </select>
+        <!-- Form to select act and scene -->
+        <form method="POST" action="questions-generator.php">
+            <div class="select-container">
+                <select name="act" required>
+                    <option value="" disabled selected>Select Act</option>
+                    <option value="1" <?php echo isset($act) && $act == '1' ? 'selected' : ''; ?>>Act 1</option>
+                    <option value="2" <?php echo isset($act) && $act == '2' ? 'selected' : ''; ?>>Act 2</option>
+                    <option value="3" <?php echo isset($act) && $act == '3' ? 'selected' : ''; ?>>Act 3</option>
+                    <option value="4" <?php echo isset($act) && $act == '4' ? 'selected' : ''; ?>>Act 4</option>
+                    <option value="5" <?php echo isset($act) && $act == '5' ? 'selected' : ''; ?>>Act 5</option>
+                </select>
 
-            <button onclick="showContent('questions')">Show Questions</button>
+                <select name="scene" required>
+                    <option value="" disabled selected>Select Scene</option>
+                    <option value="1" <?php echo isset($scene) && $scene == '1' ? 'selected' : ''; ?>>Scene 1</option>
+                    <option value="2" <?php echo isset($scene) && $scene == '2' ? 'selected' : ''; ?>>Scene 2</option>
+                    <option value="3" <?php echo isset($scene) && $scene == '3' ? 'selected' : ''; ?>>Scene 3</option>
+                    <option value="4" <?php echo isset($scene) && $scene == '4' ? 'selected' : ''; ?>>Scene 4</option>
+                    <option value="5" <?php echo isset($scene) && $scene == '5' ? 'selected' : ''; ?>>Scene 5</option>
+                    wrlkgnsroibgsprinb<option value="6" wrlkgnsroibgsprinb<?php echo isset($scene) && $scene == '6' ? 'selected' : ''; ?>>Scene 6</option>
+                    <option value="7" <?php echo isset($scene) && $scene == '7' ? 'selected' : ''; ?>>Scene 7</option>
+                </select>
+
+                <button type="submit">Show Questions</button>
+            </div>
+        </form>
+
+        <!-- Display the fetched questions -->
+        <div id="contentDisplay">
+            <?php if (!empty($questions)) : ?>
+                <ul>
+                    <?php foreach ($questions as $question) : ?>
+                        <li><?php echo htmlspecialchars($question); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </div>
-
-        <div id="contentDisplay"></div>
     </section>
 
     <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Removed logic for login link visibility and profile dropdown
-        });
-    </script>
-    
 </body>
 </html>

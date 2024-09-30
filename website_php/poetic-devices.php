@@ -1,5 +1,50 @@
 <?php
 session_start();
+
+// Database connection details
+$servername = "localhost";
+$username = "root";  // Replace with your database username
+$password = "";  // Replace with your database password
+$dbname = "macbeth_db";  // Replace with your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch poetic devices based on act and scene
+$act = isset($_POST['act']) ? $_POST['act'] : null;
+$scene = isset($_POST['scene']) ? $_POST['scene'] : null;
+$poetic_devices = [];
+
+if ($act && $scene) {
+    // Prepare act and scene as strings (e.g., 'Act 1', 'Scene 3')
+    $act_value = "Act " . $act;
+    $scene_value = "Scene " . $scene;
+
+    // SQL query to get poetic devices based on act and scene
+    $sql = "SELECT device_name, device_description FROM poetic_devices WHERE act = ? AND scene = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $act_value, $scene_value);  // 'ss' means two strings
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Fetch all poetic devices
+        while ($row = $result->fetch_assoc()) {
+            $poetic_devices[] = $row;
+        }
+    } else {
+        $poetic_devices[] = ["device_name" => "No devices", "device_description" => "Poetic devices not available for the selected act and scene."];
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,35 +53,6 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poetic Devices - Macbeth</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .hidden {
-            display: none;
-        }
-        .profile-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .profile-dropdown {
-            position: absolute;
-            top: 50px;
-            right: 10px;
-            background-color: white;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            display: none;
-        }
-        .profile-dropdown a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: black;
-        }
-        .profile-dropdown a:hover {
-            background-color: #f0f0f0;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -60,32 +76,45 @@ session_start();
 
     <section id="content">
         <h1>Poetic Devices</h1>
-        <div class="select-container">
-            <select id="actSelect" onchange="populateScenes()">
-                <option value="" disabled selected>Select Act</option>
-                <option value="1">Act 1</option>
-                <option value="2">Act 2</option>
-                <option value="3">Act 3</option>
-                <option value="4">Act 4</option>
-                <option value="5">Act 5</option>
-            </select>
 
-            <select id="sceneSelect">
-                <option value="" disabled selected>Select Scene</option>
-            </select>
+        <!-- Form to select act and scene -->
+        <form method="POST" action="poetic-devices.php">
+            <div class="select-container">
+                <select name="act" required>
+                    <option value="" disabled selected>Select Act</option>
+                    <option value="1" <?php echo isset($act) && $act == '1' ? 'selected' : ''; ?>>Act 1</option>
+                    <option value="2" <?php echo isset($act) && $act == '2' ? 'selected' : ''; ?>>Act 2</option>
+                    <option value="3" <?php echo isset($act) && $act == '3' ? 'selected' : ''; ?>>Act 3</option>
+                    <option value="4" <?php echo isset($act) && $act == '4' ? 'selected' : ''; ?>>Act 4</option>
+                    <option value="5" <?php echo isset($act) && $act == '5' ? 'selected' : ''; ?>>Act 5</option>
+                </select>
 
-            <button onclick="showContent('poetic-devices')">Show Poetic Devices</button>
+                <select name="scene" required>
+                    <option value="" disabled selected>Select Scene</option>
+                    <option value="1" <?php echo isset($scene) && $scene == '1' ? 'selected' : ''; ?>>Scene 1</option>
+                    <option value="2" <?php echo isset($scene) && $scene == '2' ? 'selected' : ''; ?>>Scene 2</option>
+                    <option value="3" <?php echo isset($scene) && $scene == '3' ? 'selected' : ''; ?>>Scene 3</option>
+                    <option value="4" <?php echo isset($scene) && $scene == '4' ? 'selected' : ''; ?>>Scene 4</option>
+                    <option value="5" <?php echo isset($scene) && $scene == '5' ? 'selected' : ''; ?>>Scene 5</option>
+                    <option value="6" <?php echo isset($scene) && $scene == '6' ? 'selected' : ''; ?>>Scene 6</option>
+                    <option value="7" <?php echo isset($scene) && $scene == '7' ? 'selected' : ''; ?>>Scene 7</option>
+                </select>
+
+                <button type="submit">Show Poetic Devices</button>
+            </div>
+        </form>
+
+        <!-- Display the fetched poetic devices -->
+        <div id="contentDisplay">
+            <?php if (!empty($poetic_devices)) : ?>
+                <?php foreach ($poetic_devices as $device) : ?>
+                    <h3><?php echo htmlspecialchars($device['device_name']); ?></h3>
+                    <p><?php echo htmlspecialchars($device['device_description']); ?></p>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
-
-        <div id="contentDisplay"></div>
     </section>
 
     <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Removed logic for profile dropdown and login link
-        });
-    </script>
-    
 </body>
 </html>
