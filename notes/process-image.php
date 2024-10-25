@@ -5,7 +5,7 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
 
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
         $python_path = "C:\\Users\\RWIK\\anaconda3\\python.exe"; 
-        $script_path = "C:\\xampp\\htdocs\\website_php\\ocr_script.py"; 
+        $script_path = "C:\\xampp\\htdocs\\notes\\ocr_script.py"; 
         
         $text_file_path = pathinfo($target_file, PATHINFO_FILENAME) . ".txt"; 
 

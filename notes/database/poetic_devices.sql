@@ -91,3 +91,23 @@ INSERT INTO poetic_devices (act, scene, device_name, device_description) VALUES
 ('Act 5', 'Scene 5', 'Soliloquy', 'Macbeth’s soliloquy reflects his disillusionment and the futility of life, emphasizing the theme of existential despair.'),
 ('Act 5', 'Scene 6', 'Symbolism', 'The battle itself symbolizes the clash between good and evil, with Malcolm representing rightful leadership.'),
 ('Act 5', 'Scene 7', 'Dramatic Irony', 'Macbeth’s confidence in his invincibility contrasts with the audience’s awareness of his impending doom.');
+
+INSERT INTO poetic_devices (act, scene, device_name, device_description) VALUES
+-- Act 1, Scene 2
+('Act 1', 'Scene 2', 'Imagery', 'Shakespeare uses vivid imagery to convey the horror and guilt associated with Duncan’s murder. Macbeth’s bloodstained hands symbolize his guilt and the irreversible nature of his actions.'),
+('Act 1', 'Scene 2', 'Metaphor', 'Macbeth’s inability to say “Amen” and hearing a voice saying “Macbeth does murder sleep” are metaphors for his disturbed conscience and psychological consequences of his crime.'),
+('Act 1', 'Scene 2', 'Irony', 'Situational irony is seen in Lady Macbeth’s calm demeanor compared to Macbeth’s panic. Despite her composure, she later succumbs to guilt, showing the irony of her belief that "a little water clears us of this deed".'),
+('Act 1', 'Scene 2', 'Hyperbole', 'Macbeth’s statement that not all the water in the world could wash the blood from his hands is hyperbole, emphasizing the depth of his guilt.'),
+('Act 1', 'Scene 2', 'Symbolism', 'Blood and sleeplessness are recurring symbols, representing guilt and the consequences of their actions.'),
+('Act 1', 'Scene 2', 'Allusion', 'The knocking at the door alludes to the knocking of Macbeth’s heart, symbolizing his fear and paranoia.'),
+
+-- Act 1, Scene 3
+('Act 1', 'Scene 3', 'Imagery', 'The witches describe their magical deeds, such as killing swine and cursing a sailor. This vivid imagery shows their wickedness and supernatural power. Macbeth’s internal struggle is depicted through the imagery of his "seated heart" knocking at his ribs.'),
+('Act 1', 'Scene 3', 'Foreshadowing', 'The witches’ prophecies foreshadow Macbeth’s rise to power and downfall. Banquo’s remark about "half truths" hints at the consequences of Macbeth’s actions.'),
+('Act 1', 'Scene 3', 'Metaphor', 'Macbeth refers to committing regicide as "supernatural soliciting," highlighting the unnaturalness of the act.'),
+('Act 1', 'Scene 3', 'Motif', 'The motif of the unnatural is present throughout the play. The witches symbolize this, connecting politics and the environment. Macbeth’s struggle with ambition and fate is another recurring motif.'),
+
+-- Act 1, Scene 4
+('Act 1', 'Scene 4', 'Chiasmus', 'This rhetorical device reverses the order of words or phrases for emphasis. The line “Fair is foul, and foul is fair” exemplifies chiasmus.'),
+('Act 1', 'Scene 4', 'Antithesis', 'Antithesis juxtaposes contrasting ideas. The line “When the battle’s lost, and won” captures the paradoxical nature of Macbeth’s situation.'),
+('Act 1', 'Scene 4', 'Imagery and Metaphor', 'Duncan’s imagery portrays Scotland as a garden, with himself as the caretaker. The metaphor “I have begun to plant thee and will labor to make thee full of growing” emphasizes his role as king and nurturing Macbeth’s growth.');
