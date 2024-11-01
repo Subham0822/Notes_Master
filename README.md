@@ -1,3 +1,3 @@
 # Notes_Master
 
-Visit the website: http:techrangers.sabyasachiganguli.com
+Visit the website: https://techrangers.sabyasachiganguli.com
