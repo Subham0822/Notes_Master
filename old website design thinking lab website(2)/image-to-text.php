@@ -62,8 +62,7 @@
             <input type="file" id="file-upload" name="file" accept="image/*" required>
             <button type="submit">Submit</button>
         </form>
-        <div id="ocr-results">
-        </div>
+        <div id="ocr-results"></div>
     </section>
 
     <script>

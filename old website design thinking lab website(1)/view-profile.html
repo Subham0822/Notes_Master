@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="image-to-text.html">Image to Text Generator</a></li>
+                <li class="dropdown">
+                    <a href="macbeth-info.html" class="dropbtn">Macbeth</a>
+                    <div class="dropdown-content">
+                        <a href="summary-generator.html">Summary Generator</a>
+                        <a href="flashcards-generator.html">Flashcards Generator</a>
+                        <a href="questions-generator.html">Questions Generator</a>
+                        <a href="analysis.html">Analysis</a>
+                        <a href="poetic-devices.html">Poetic Devices</a>
+                    </div>
+                </li>
+                <li id="login-link"><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="profile">
+        <h1>User Profile</h1>
+        <div class="profile-container">
+            <div class="profile-details">
+                <p><strong>Username:</strong> <span id="profile-username"></span></p>
+                <p><strong>Email:</strong> user@example.com</p> <!-- Replace with actual email if available -->
+                <!-- Add more user details as necessary -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.getElementById('profile-username').textContent = username;
+        } else {
+            window.location.href = "login.html"; // Redirect to login if not logged in
+        }
+    </script>
+</body>
+</html>

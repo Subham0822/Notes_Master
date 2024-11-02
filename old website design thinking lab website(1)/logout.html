@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section id="logout">
+        <h1>Logging Out...</h1>
+        <p>You are being logged out. Please wait...</p>
+    </section>
+
+    <script>
+        // Clear the username from localStorage and redirect to home page
+        localStorage.removeItem('username');
+        setTimeout(() => {
+            window.location.href = "index.html"; // Redirect to home page after logout
+        }, 2000); // 2-second delay before redirect
+    </script>
+</body>
+</html>
